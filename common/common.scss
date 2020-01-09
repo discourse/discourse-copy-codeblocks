@@ -1,0 +1,14 @@
+code[data-value] {
+  position: relative;
+  display: block;
+
+  .copy-cmd {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    .d-icon {
+      pointer-events: none;
+    }
+  }
+}
