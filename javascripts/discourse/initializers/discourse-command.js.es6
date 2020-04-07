@@ -88,6 +88,8 @@ export default {
               string = string.replace(/^\s+|\s+$/g, "");
               clipboardCopy(string);
             }
+            event.currentTarget.childNodes[0].innerHTML = I18n.t(themePrefix('command.copied'));
+            setTimeout(() => {event.currentTarget.childNodes[0].innerHTML = I18n.t(themePrefix('command.copy'))}, 200);
           });
       }
 
