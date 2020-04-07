@@ -1,11 +1,21 @@
+.cooked > pre:first-child {
+  margin-top: 1.5em; 
+}
+
+.cooked pre {
+  margin-top: 2em;
+  overflow: initial;
+  position: relative;
+}
+
 code[data-value] {
   display: block;
   margin-top: 12px;
 
   .copy-cmd {
     position: absolute;
-    right: 12px;
-    top: -12px;
+    right: 0;
+    top: -23px;
 
     min-height: 0;
     font-size: $font-down-2;
