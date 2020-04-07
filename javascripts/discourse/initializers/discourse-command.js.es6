@@ -66,7 +66,7 @@ export default {
       }
 
       function _attachCommands($elem, post) {
-        const $commands = $("code", $elem);
+        const $commands = $("pre > code", $elem);
 
         if (!$commands.length) {
           return;
@@ -78,9 +78,7 @@ export default {
           .each((idx, command) => {
             command.setAttribute("data-value", command.innerText);
             const $button = $(
-              `<button class="btn btn-default btn-icon no-text copy-cmd">${iconHTML(
-                "copy"
-              )}</button>`
+              `<button class="btn copy-cmd">${I18n.t(themePrefix('command.copy'))}</button>`
             );
             $(command).append($button);
           })
