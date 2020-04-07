@@ -1,3 +1,4 @@
+import { later } from "@ember/runloop";
 import { iconHTML } from "discourse-common/lib/icon-library";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
@@ -84,12 +85,13 @@ export default {
           })
           .on("click", ".copy-cmd", event => {
             let string = event.target.parentNode.getAttribute("data-value");
+            let textNode = event.currentTarget.childNodes[0];
             if (string) {
               string = string.replace(/^\s+|\s+$/g, "");
               clipboardCopy(string);
             }
-            event.currentTarget.childNodes[0].innerHTML = I18n.t(themePrefix('command.copied'));
-            setTimeout(() => {event.currentTarget.childNodes[0].innerHTML = I18n.t(themePrefix('command.copy'))}, 200);
+            textNode.innerHTML = I18n.t(themePrefix('command.copied'));
+            later(() => {textNode.innerHTML = I18n.t(themePrefix('command.copy'))}, 200);
           });
       }
 
