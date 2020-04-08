@@ -1,11 +1,14 @@
-code[data-value] {
-  position: relative;
+.discourse-command {
   display: block;
+  position: relative;
+  overflow: visible;
 
   .copy-cmd {
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
+    min-height: 0;
+    font-size: $font-down-2;
 
     .d-icon {
       pointer-events: none;

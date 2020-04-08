@@ -1,0 +1,10 @@
+pre.discourse-command .copy-cmd {
+  opacity: 0;
+  transition: 0.2s;
+  visibility: hidden;
+}
+
+pre.discourse-command:hover .copy-cmd {
+  opacity: 1;
+  visibility: visible;
+}

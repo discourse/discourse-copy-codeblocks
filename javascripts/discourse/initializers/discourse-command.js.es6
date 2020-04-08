@@ -1,5 +1,7 @@
-import { iconHTML } from "discourse-common/lib/icon-library";
+import { later } from "@ember/runloop";
 import { withPluginApi } from "discourse/lib/plugin-api";
+
+import { Promise } from "rsvp";
 
 // http://github.com/feross/clipboard-copy
 function clipboardCopy(text) {
@@ -37,6 +39,7 @@ function clipboardCopy(text) {
   try {
     success = window.document.execCommand("copy");
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log("error", err);
   }
 
@@ -60,42 +63,55 @@ export default {
     withPluginApi("0.8.7", api => {
       function _cleanUp() {
         if (_clickHandlerElement) {
-          _clickHandlerElement.off("click", ".copy-cmd");
+          _clickHandlerElement.removeEventListener("click", _handleClick);
           _clickHandlerElement = null;
         }
       }
 
-      function _attachCommands($elem, post) {
-        const $commands = $("code", $elem);
-
-        if (!$commands.length) {
+      function _handleClick(event) {
+        if (!event.target.classList.contains("copy-cmd")) {
           return;
         }
 
-        _clickHandlerElement = $commands;
+        const button = event.target;
 
-        $commands
-          .each((idx, command) => {
-            command.setAttribute("data-value", command.innerText);
-            const $button = $(
-              `<button class="btn btn-default btn-icon no-text copy-cmd">${iconHTML(
-                "copy"
-              )}</button>`
-            );
-            $(command).append($button);
-          })
-          .on("click", ".copy-cmd", event => {
-            let string = event.target.parentNode.getAttribute("data-value");
-            if (string) {
-              string = string.replace(/^\s+|\s+$/g, "");
-              clipboardCopy(string);
-            }
-          });
+        let string = button.dataset.value;
+
+        if (string) {
+          string = string.replace(/^\s+|\s+$/g, "");
+          clipboardCopy(string);
+        }
+
+        button.innerHTML = I18n.t(themePrefix("command.copied"));
+
+        later(
+          () => (button.innerHTML = I18n.t(themePrefix("command.copy"))),
+          200
+        );
       }
 
-      api.decorateCooked(_attachCommands, {
-        id: "discourse-cmd"
-      });
+      function _attachCommands($elem) {
+        const commands = $elem[0].querySelectorAll("pre > code");
+
+        if (!commands.length) {
+          return;
+        }
+
+        _clickHandlerElement = $elem[0];
+
+        commands.forEach(command => {
+          const button = document.createElement("button");
+          button.classList.add("btn", "nohighlight", "copy-cmd");
+          button.innerText = I18n.t(themePrefix("command.copy"));
+          button.dataset.value = command.innerText;
+          command.before(button);
+          command.parentElement.classList.add("discourse-command");
+        });
+
+        _clickHandlerElement.addEventListener("click", _handleClick, false);
+      }
+
+      api.decorateCooked(_attachCommands, { id: "discourse-cmd" });
 
       api.cleanupStream(_cleanUp);
     });
