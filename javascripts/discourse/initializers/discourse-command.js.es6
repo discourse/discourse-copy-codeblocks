@@ -74,20 +74,23 @@ export default {
         }
 
         const button = event.target;
+        const code = button.nextSibling;
 
-        let string = button.dataset.value;
+        if (code) {
+          let string = code.innerText;
 
-        if (string) {
-          string = string.replace(/^\s+|\s+$/g, "");
-          clipboardCopy(string);
+          if (string) {
+            string = string.replace(/^\s+|\s+$/g, "");
+            clipboardCopy(string);
+          }
+
+          button.innerHTML = I18n.t(themePrefix("command.copied"));
+
+          later(
+            () => (button.innerHTML = I18n.t(themePrefix("command.copy"))),
+            200
+          );
         }
-
-        button.innerHTML = I18n.t(themePrefix("command.copied"));
-
-        later(
-          () => (button.innerHTML = I18n.t(themePrefix("command.copy"))),
-          200
-        );
       }
 
       function _attachCommands($elem) {
@@ -103,7 +106,6 @@ export default {
           const button = document.createElement("button");
           button.classList.add("btn", "nohighlight", "copy-cmd");
           button.innerText = I18n.t(themePrefix("command.copy"));
-          button.dataset.value = command.innerText;
           command.before(button);
           command.parentElement.classList.add("discourse-command");
         });
