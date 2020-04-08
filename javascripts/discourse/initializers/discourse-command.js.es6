@@ -79,19 +79,23 @@ export default {
           .each((idx, command) => {
             command.setAttribute("data-value", command.innerText);
             const $button = $(
-              `<button class="btn copy-cmd">${I18n.t(themePrefix('command.copy'))}</button>`
+              `<button class="btn nohighlight copy-cmd">${I18n.t(
+                themePrefix("command.copy")
+              )}</button>`
             );
             $(command).append($button);
           })
           .on("click", ".copy-cmd", event => {
             let string = event.target.parentNode.getAttribute("data-value");
-            let textNode = event.currentTarget.childNodes[0];
+            let textNode = event.currentTarget;
             if (string) {
               string = string.replace(/^\s+|\s+$/g, "");
               clipboardCopy(string);
             }
-            textNode.innerHTML = I18n.t(themePrefix('command.copied'));
-            later(() => {textNode.innerHTML = I18n.t(themePrefix('command.copy'))}, 200);
+            textNode.innerHTML = I18n.t(themePrefix("command.copied"));
+            later(() => {
+              textNode.innerHTML = I18n.t(themePrefix("command.copy"));
+            }, 200);
           });
       }
 
