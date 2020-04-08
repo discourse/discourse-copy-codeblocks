@@ -1,10 +1,10 @@
-code[data-value] .copy-cmd {
+pre.discourse-command .copy-cmd {
   opacity: 0;
   transition: 0.2s;
   visibility: hidden;
 }
 
-code[data-value]:hover .copy-cmd {
-  opacity: 1.0;
+pre.discourse-command:hover .copy-cmd {
+  opacity: 1;
   visibility: visible;
 }
