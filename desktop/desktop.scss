@@ -1,0 +1,10 @@
+code[data-value] .copy-cmd {
+  opacity: 0;
+  transition: 0.2s;
+  visibility: hidden;
+}
+
+code[data-value]:hover .copy-cmd {
+  opacity: 1.0;
+  visibility: visible;
+}
