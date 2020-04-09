@@ -1,4 +1,3 @@
-import { later } from "@ember/runloop";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 import { Promise } from "rsvp";
@@ -86,7 +85,7 @@ export default {
 
           button.innerHTML = I18n.t(themePrefix("codeblocks.copied"));
 
-          later(
+          Ember.run.later(
             () => (button.innerHTML = I18n.t(themePrefix("codeblocks.copy"))),
             200
           );
