@@ -1,7 +1,7 @@
 {
-  "name": "discourse-command",
+  "name": "discourse-copy-codeblocks",
   "version": "1.0.0",
-  "repository": "git@github.com:discourse/discourse-command.git",
+  "repository": "git@github.com:discourse/discourse-copy-codeblocks.git",
   "author": "Discourse",
   "license": "MIT",
   "devDependencies": {

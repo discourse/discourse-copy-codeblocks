@@ -57,7 +57,7 @@ function clipboardCopy(text) {
 let _clickHandlerElement = null;
 
 export default {
-  name: "discourse-cmd",
+  name: "discourse-copy-codeblocks",
 
   initialize() {
     withPluginApi("0.8.7", api => {
@@ -84,10 +84,10 @@ export default {
             clipboardCopy(string);
           }
 
-          button.innerHTML = I18n.t(themePrefix("command.copied"));
+          button.innerHTML = I18n.t(themePrefix("codeblocks.copied"));
 
           later(
-            () => (button.innerHTML = I18n.t(themePrefix("command.copy"))),
+            () => (button.innerHTML = I18n.t(themePrefix("codeblocks.copy"))),
             200
           );
         }
@@ -105,15 +105,15 @@ export default {
         commands.forEach(command => {
           const button = document.createElement("button");
           button.classList.add("btn", "nohighlight", "copy-cmd");
-          button.innerText = I18n.t(themePrefix("command.copy"));
+          button.innerText = I18n.t(themePrefix("codeblocks.copy"));
           command.before(button);
-          command.parentElement.classList.add("discourse-command");
+          command.parentElement.classList.add("discourse-copy-codeblocks");
         });
 
         _clickHandlerElement.addEventListener("click", _handleClick, false);
       }
 
-      api.decorateCooked(_attachCommands, { id: "discourse-cmd" });
+      api.decorateCooked(_attachCommands, { id: "discourse-copy-codeblocks" });
 
       api.cleanupStream(_cleanUp);
     });
