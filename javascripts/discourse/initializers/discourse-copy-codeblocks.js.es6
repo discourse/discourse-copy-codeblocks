@@ -1,7 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-import { Promise } from "rsvp";
-
 // http://github.com/feross/clipboard-copy
 function clipboardCopy(text) {
   // Use the Async Clipboard API when available. Requires a secure browsing
@@ -47,8 +45,8 @@ function clipboardCopy(text) {
   window.document.body.removeChild(span);
 
   return success
-    ? Promise.resolve()
-    : Promise.reject(
+    ? Ember.RSVP.resolve()
+    : Ember.RSVP.reject(
         new DOMException("The request is not allowed", "NotAllowedError")
       );
 }
