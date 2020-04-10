@@ -85,7 +85,7 @@ export default {
 
           Ember.run.later(
             () => (button.innerHTML = I18n.t(themePrefix("codeblocks.copy"))),
-            200
+            3000
           );
         }
       }
