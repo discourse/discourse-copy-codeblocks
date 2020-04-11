@@ -1,4 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { iconHTML } from "discourse-common/lib/icon-library";
 
 // http://github.com/feross/clipboard-copy
 function clipboardCopy(text) {
@@ -81,12 +82,9 @@ export default {
             clipboardCopy(string);
           }
 
-          button.innerHTML = I18n.t(themePrefix("codeblocks.copied"));
+          button.classList.add("copied");
 
-          Ember.run.later(
-            () => (button.innerHTML = I18n.t(themePrefix("codeblocks.copy"))),
-            3000
-          );
+          Ember.run.later(() => button.classList.remove("copied"), 3000);
         }
       }
 
@@ -102,7 +100,7 @@ export default {
         commands.forEach(command => {
           const button = document.createElement("button");
           button.classList.add("btn", "nohighlight", "copy-cmd");
-          button.innerText = I18n.t(themePrefix("codeblocks.copy"));
+          button.innerHTML = iconHTML("copy");
           command.before(button);
           command.parentElement.classList.add("discourse-copy-codeblocks");
         });

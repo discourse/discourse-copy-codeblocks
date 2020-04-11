@@ -13,8 +13,15 @@
     font-size: $font-down-2;
     user-select: none;
 
+    &.copied {
+      .d-icon {
+        color: $tertiary;
+      }
+    }
+
     .d-icon {
       pointer-events: none;
+      margin-right: 0;
     }
   }
 }
