@@ -1,4 +1,4 @@
-pre.discourse-copy-codeblocks .copy-cmd {
+pre.discourse-copy-codeblocks .copy-cmd:not(.copied) {
   opacity: 0;
   transition: 0.2s;
   visibility: hidden;
