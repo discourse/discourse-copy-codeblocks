@@ -2,6 +2,7 @@
   "name": "Copy Codeblocks",
   "about_url": null,
   "license_url": null,
+  "maximum_discourse_version": "2.5.0.beta2",
   "assets": {},
   "color_schemes": {},
   "component": true
